@@ -1,0 +1,25 @@
+// FormComponent.js
+import React, { useState } from 'react';
+
+function FormComponent() {
+  const [formData, setFormData] = useState({ name: '', email: '' });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert(`Name: ${formData.name}, Email: ${formData.email}`);
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input type="text" name="name" placeholder="Enter name" onChange={handleChange} />
+      <input type="email" name="email" placeholder="Enter email" onChange={handleChange} />
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+
+export default FormComponent;
