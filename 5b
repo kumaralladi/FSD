@@ -1,0 +1,38 @@
+// crud.js
+const express = require('express');
+const app = express();
+app.use(express.json());
+
+let users = [
+  { id: 1, name: "John" },
+  { id: 2, name: "Emma" }
+];
+
+// CREATE
+app.post('/users', (req, res) => {
+  const newUser = req.body;
+  users.push(newUser);
+  res.send('User added successfully!');
+});
+
+// READ
+app.get('/users', (req, res) => {
+  res.json(users);
+});
+
+// UPDATE
+app.put('/users/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const updatedUser = req.body;
+  users = users.map(user => user.id === id ? updatedUser : user);
+  res.send('User updated successfully!');
+});
+
+// DELETE
+app.delete('/users/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  users = users.filter(user => user.id !== id);
+  res.send('User deleted successfully!');
+});
+
+app.listen(3000, () => console.log('Server running on port 3000'));
